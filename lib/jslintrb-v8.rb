@@ -190,11 +190,10 @@ class JSLint
           widget   : JSLintRBwidget
         });
       }
-      errors = context['JSLINT'].errors.inject("") do |output, error|
-        output += "Error at line #{error['line'].to_i + 1} " + 
+      errors = context['JSLINT'].errors.map do |error|
+        "Error at line #{error['line'].to_i + 1} " + 
             "character #{error['character'].to_i + 1}: #{error['reason']}\n" +
             "  #{error['evidence']}"
-        output
       end
       if errors.empty?
         return nil
